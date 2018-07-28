@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span>Questions</span>
+        <button class="btn btn-primary float-right jh-create-entity create-question" [routerLink]="['/', { outlets: { popup: ['question-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Question
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="questions">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Text</span></th>
+            <th><span>Option 1</span></th>
+            <th><span>Option 2</span></th>
+            <th><span>Option 3</span></th>
+            <th><span>Option 4</span></th>
+            <th><span>Answer</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let question of questions ;trackBy: trackId">
+                <td><a [routerLink]="['../question', question.id ]">{{question.id}}</a></td>
+                <td>{{question.text}}</td>
+                <td>
+                    <div *ngIf="question.option1">
+                        <a [routerLink]="['../answer', question.option1?.id ]" >{{question.option1?.text}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.option2">
+                        <a [routerLink]="['../answer', question.option2?.id ]" >{{question.option2?.text}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.option3">
+                        <a [routerLink]="['../answer', question.option3?.id ]" >{{question.option3?.text}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.option4">
+                        <a [routerLink]="['../answer', question.option4?.id ]" >{{question.option4?.text}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="question.answer">
+                        <a [routerLink]="['../answer', question.answer?.id ]" >{{question.answer?.text}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../question', question.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'question/'+ question.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'question/'+ question.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

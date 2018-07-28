@@ -26,6 +26,7 @@ import {
     PageRibbonComponent,
     ErrorComponent
 } from './layouts';
+import { FilteroptionsPipe } from './filteroptions.pipe';
 
 @NgModule({
     imports: [

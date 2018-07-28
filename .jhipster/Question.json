@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "option1",
+            "otherEntityName": "answer",
+            "otherEntityField": "text"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "option2",
+            "otherEntityName": "answer",
+            "otherEntityField": "text"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "option3",
+            "otherEntityName": "answer",
+            "otherEntityField": "text"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "option4",
+            "otherEntityName": "answer",
+            "otherEntityField": "text"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "answer",
+            "otherEntityName": "answer",
+            "otherEntityField": "text"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "text",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180726221635",
+    "entityTableName": "question",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false
+}

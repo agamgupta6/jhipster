@@ -1,0 +1,78 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myQuestionLabel">Create or edit a Question</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!question.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="question.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_text">Text</label>
+            <input type="text" class="form-control" name="text" id="field_text"
+                [(ngModel)]="question.text" required/>
+            <div [hidden]="!(editForm.controls.text?.dirty && editForm.controls.text?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.text?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+            <div [hidden]="!isDuplicateOption">
+                <small class="form-text text-danger">
+                   Options can not be duplicated.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_option1">Option 1</label>
+            <input type="text" [(ngModel)]="filterOption1" name="filterOption1" placeholder="Type here to filter"> Best Match: {{answers|filteroptions:filterOption1|bestmatchfilter:filterOption1}}
+            <select class="form-control" id="field_option1" name="option1" [(ngModel)]="question.option1" (ngModelChange)="validateOptions()" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="answerOption.id === question.option1?.id ? question.option1 : answerOption" *ngFor="let answerOption of answers|filteroptions:filterOption1; trackBy: trackAnswerById" >{{answerOption.text}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_option2">Option 2</label>
+            <select class="form-control" id="field_option2" name="option2" [(ngModel)]="question.option2" (ngModelChange)="validateOptions()" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="answerOption.id === question.option2?.id ? question.option2 : answerOption" *ngFor="let answerOption of answers; trackBy: trackAnswerById">{{answerOption.text}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_option3">Option 3</label>
+            <select class="form-control" id="field_option3" name="option3" [(ngModel)]="question.option3" (ngModelChange)="validateOptions()" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="answerOption.id === question.option3?.id ? question.option3 : answerOption" *ngFor="let answerOption of answers; trackBy: trackAnswerById">{{answerOption.text}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_option4">Option 4</label>
+            <select class="form-control" id="field_option4" name="option4" [(ngModel)]="question.option4" (ngModelChange)="validateOptions()" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="answerOption.id === question.option4?.id ? question.option4 : answerOption" *ngFor="let answerOption of answers; trackBy: trackAnswerById">{{answerOption.text}}</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-control-label" for="field_answer">Answer</label>
+            <select class="form-control" id="field_answer" name="answer" [(ngModel)]="question.answer" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="answerOption.id === question.answer?.id ? question.answer : answerOption" *ngFor="let answerOption of allowedAnswers; trackBy: trackAnswerById">{{answerOption.text}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || isDuplicateOption" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

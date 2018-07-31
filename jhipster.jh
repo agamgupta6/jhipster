@@ -1,0 +1,32 @@
+// JDL definition for application 'jhipster' generated with command 'jhipster export-jdl'
+
+entity Question (question) {
+  text String required
+}
+entity Answer (answer) {
+  text String required
+}
+entity Examination (examination) {
+  text String required
+}
+entity RunningExamination (running_examination) {
+  status String required
+}
+entity ExaminationBase (examination_base)
+
+relationship ManyToOne {
+  Question{option1(text)} to Answer,
+  Question{option2(text)} to Answer,
+  Question{option3(text)} to Answer,
+  Question{option4(text)} to Answer,
+  Question{answer(text)} to Answer,
+  RunningExamination{examid(text)} to Examination,
+  ExaminationBase{runningExam} to RunningExamination,
+  ExaminationBase{question(text)} to Question,
+  ExaminationBase{answer(text)} to Answer,
+  ExaminationBase{user(login)} to User
+}
+relationship ManyToMany {
+  Examination{questionset(text)} to Question{exam}
+}
+
